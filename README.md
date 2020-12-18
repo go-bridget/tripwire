@@ -21,8 +21,10 @@ Run `tripwire` from the same folder.
 Any tripwire check must return an array of results, with the keys `key`
 and `value` for each result. The results must contain at least one result.
 
-# TODO
+# Features
 
+- [x] Set config path with `-f' (default to `tripwire.json`)
+- [x] Set work dir path with `-w` (default to `.` - current folder)
 - [ ] Set a healthcheck timeout for running a check
 - [ ] Check exit code from a check (non-zero = error?)
 - [ ] Run checks in parallel to be faster

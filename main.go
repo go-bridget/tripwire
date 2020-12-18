@@ -1,6 +1,9 @@
 package main
 
 import (
+	"flag"
+	"os"
+
 	"encoding/json"
 	"io/ioutil"
 	"os/exec"
@@ -23,7 +26,20 @@ type CheckResult struct {
 }
 
 func start() error {
-	checksJSON, err := ioutil.ReadFile("tripwire.json")
+	var config struct {
+		Workdir    string
+		ConfigFile string
+	}
+
+	flag.StringVar(&config.Workdir, "w", ".", "Set working path")
+	flag.StringVar(&config.ConfigFile, "f", "tripwire.json", "Set config path")
+	flag.Parse()
+
+	if err := os.Chdir(config.Workdir); err != nil {
+		return err
+	}
+
+	checksJSON, err := ioutil.ReadFile(config.ConfigFile)
 	if err != nil {
 		return err
 	}
